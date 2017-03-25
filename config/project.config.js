@@ -13,7 +13,7 @@ const config = {
   server_host: 'localhost',
   server_port: process.env.PORT || 3000,
 
-  compiler_devtool: 'cheap-module-source-map',
+  compiler_devtool: 'eval',
   compiler_public_path: '/',
   compiler_hash_type: 'hash',
   compiler_fail_on_warning: false,

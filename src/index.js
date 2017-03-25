@@ -1,12 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import { AppContainer } from 'react-hot-loader';
+
 import Home from './routes';
 
 const render = () => {
   try {
     ReactDOM.render(
-      <Home />,
+      <AppContainer>
+        <Home />
+      </AppContainer>,
       document.getElementById('root')
     );
   } catch (err) {

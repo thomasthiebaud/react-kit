@@ -6,13 +6,10 @@ const project = require('../config/project.config');
 
 function runDevServer() {
   const devServer = new WebpackDevServer(webpack(config), {
-    // Enable gzip compression of generated files.
     compress: true,
-    // clientLogLevel: 'none',
-    // contentBase: project.compiler_public_path,
     hot: true,
     publicPath: project.compiler_public_path,
-    quiet: true,
+    stats: project.compiler_stats,
     watchOptions: {
       ignored: /node_modules/
     },
