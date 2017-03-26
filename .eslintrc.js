@@ -3,6 +3,10 @@ module.exports = {
     'standard',
     'standard-react',
   ],
+  env: {
+    browser: true,
+    jest: true,
+  },
   plugins: [
     'standard',
     'promise',
