@@ -44,12 +44,8 @@ const config = {
   },
 
   plugins: [
-    new HtmlWebpackPlugin({
-      template: project.paths.client('index.html'),
-      hash: false,
-      filename: 'index.html',
-      inject: 'body',
-    }),
+    new webpack.DefinePlugin(project.globals),
+    new webpack.optimize.OccurrenceOrderPlugin(),
   ],
 
   node: {
@@ -62,7 +58,46 @@ const config = {
 if (__DEV__) {
   config.plugins.push(
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin());
+    new webpack.NoEmitOnErrorsPlugin(),
+    new HtmlWebpackPlugin({
+      template: project.paths.client('index.html'),
+      hash: false,
+      filename: 'index.html',
+      inject: 'body',
+    })
+  );
+} else if (__PROD__) {
+  config.plugins.push(
+    new HtmlWebpackPlugin({
+      inject: true,
+      template: project.paths.client('index.html'),
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeRedundantAttributes: true,
+        useShortDoctype: true,
+        removeEmptyAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        keepClosingSlash: true,
+        minifyJS: true,
+        minifyCSS: true,
+        minifyURLs: true
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        screw_ie8: true, // React doesn't support IE8
+        warnings: false
+      },
+      mangle: {
+        screw_ie8: true
+      },
+      output: {
+        comments: false,
+        screw_ie8: true
+      }
+    }),
+    new webpack.optimize.AggressiveMergingPlugin());
 }
 
 module.exports = config

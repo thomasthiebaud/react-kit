@@ -15,14 +15,16 @@ function runDevServer() {
     },
   });
 
-  // Launch WebpackDevServer.
-  devServer.listen(project.server_port, project.server_host, (err) => {
-    if (err) {
-      console.log('Webpack dev server encountered an error', err);
-      return reject(err);
-    }
-    console.log(`Listening at ${project.server_host}:${project.server_port}`);
-  });
+  return new Promise((resolve, reject) => {
+    devServer.listen(project.server_port, project.server_host, (err) => {
+      if (err) {
+        console.log('Webpack dev server encountered an error', err);
+        return reject(err);
+      }
+      console.log(`Listening at ${project.server_host}:${project.server_port}`);
+      return resolve();
+    });
+  })
 }
 
-runDevServer()
+module.exports = runDevServer;
