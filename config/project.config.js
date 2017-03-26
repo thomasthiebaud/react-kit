@@ -9,6 +9,7 @@ const config = {
   path_base: path.resolve(__dirname, '..'),
   dir_client: 'src',
   dir_dist: 'dist',
+  dir_public: 'public',
 
   server_host: 'localhost',
   server_port: process.env.PORT || 3000,
@@ -33,6 +34,7 @@ config.paths = {
   base,
   client: base.bind(null, config.dir_client),
   dist: base.bind(null, config.dir_dist),
+  public: base.bind(null, config.dir_public),
 }
 
 config.globals = {

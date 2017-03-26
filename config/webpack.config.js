@@ -63,7 +63,7 @@ if (__DEV__) {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new HtmlWebpackPlugin({
-      template: project.paths.client('index.html'),
+      template: project.paths.public('index.html'),
       hash: false,
       filename: 'index.html',
       inject: 'body',
@@ -73,7 +73,7 @@ if (__DEV__) {
   config.plugins.push(
     new HtmlWebpackPlugin({
       inject: true,
-      template: project.paths.client('index.html'),
+      template: project.paths.public('index.html'),
       minify: {
         removeComments: true,
         collapseWhitespace: true,
