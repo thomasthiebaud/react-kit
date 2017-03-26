@@ -6,6 +6,8 @@
   "scripts": {
     "build": "node bin/run build -e production",
     "commit": "git-cz",
+    "lint": "eslint .",
+    "lint:fix": "npm run lint -- --fix",
     "start": "node bin/run start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -29,6 +31,12 @@
     "babel-preset-stage-2": "6.22.0",
     "commitizen": "2.9.6",
     "cz-conventional-changelog": "2.0.0",
+    "eslint": "3.18.0",
+    "eslint-config-standard": "7.1.0",
+    "eslint-config-standard-react": "4.3.0",
+    "eslint-plugin-promise": "3.5.0",
+    "eslint-plugin-react": "6.10.3",
+    "eslint-plugin-standard": "2.1.1",
     "html-webpack-plugin": "2.28.0",
     "minimist": "1.2.0",
     "webpack": "2.3.2",

@@ -1,7 +1,7 @@
-const path = require('path');
-const pck = require('../package.json');
+const path = require('path')
+const pck = require('../package.json')
 
-const environments = require('./env.config');
+const environments = require('./env.config')
 
 const config = {
   env: process.env.NODE_ENV || 'development',
@@ -23,17 +23,17 @@ const config = {
     colors: true,
   },
   compiler_vendors: Object.keys(pck.dependencies || {}),
-};
+}
 
-function base(...args) {
-  return path.resolve(...[config.path_base].concat(args));
+function base (...args) {
+  return path.resolve(...[config.path_base].concat(args))
 }
 
 config.paths = {
   base,
   client: base.bind(null, config.dir_client),
   dist: base.bind(null, config.dir_dist),
-};
+}
 
 config.globals = {
   'process.env': {
@@ -43,11 +43,11 @@ config.globals = {
   __DEV__: config.env === 'development',
   __PROD__: config.env === 'production',
   __TEST__: config.env === 'test',
-};
-
-const overrides = environments[config.env];
-if (overrides) {
-  Object.assign(config, overrides(config));
 }
 
-module.exports = config;
+const overrides = environments[config.env]
+if (overrides) {
+  Object.assign(config, overrides(config))
+}
+
+module.exports = config

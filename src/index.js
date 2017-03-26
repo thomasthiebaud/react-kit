@@ -1,9 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-import { AppContainer } from 'react-hot-loader';
+import { AppContainer } from 'react-hot-loader'
 
-import Home from './routes';
+import Home from './routes'
 
 const render = () => {
   try {
@@ -12,14 +12,14 @@ const render = () => {
         <Home />
       </AppContainer>,
       document.getElementById('root')
-    );
+    )
   } catch (err) {
     console.error(err)
   }
-};
+}
 
 if (module.hot) {
-  module.hot.accept('./routes', () => render());
+  module.hot.accept('./routes', () => render())
 }
 
 render()

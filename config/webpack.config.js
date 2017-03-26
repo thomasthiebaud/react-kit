@@ -1,13 +1,13 @@
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const project = require('./project.config')
 
-const __DEV__ = project.globals.__DEV__;
-const __PROD__ = project.globals.__PROD__;
-const __TEST__ = project.globals.__TEST__;
+const __DEV__ = project.globals.__DEV__
+const __PROD__ = project.globals.__PROD__
+const __TEST__ = project.globals.__TEST__
 
-const APP_ENTRIES = [project.paths.client('index.js')];
+const APP_ENTRIES = [project.paths.client('index.js')]
 
 if (__DEV__) {
   APP_ENTRIES.unshift(
@@ -20,7 +20,10 @@ if (__DEV__) {
 const config = {
   devtool: project.compiler_devtool,
 
-  entry: APP_ENTRIES,
+  entry: {
+    app: APP_ENTRIES,
+    vendor: project.compiler_vendors,
+  },
 
   output: {
     path: project.paths.dist(),
@@ -51,8 +54,8 @@ const config = {
   node: {
     fs: 'empty',
     net: 'empty',
-    tls: 'empty'
-  }
+    tls: 'empty',
+  },
 }
 
 if (__DEV__) {
@@ -65,7 +68,7 @@ if (__DEV__) {
       filename: 'index.html',
       inject: 'body',
     })
-  );
+  )
 } else if (__PROD__) {
   config.plugins.push(
     new HtmlWebpackPlugin({
@@ -81,23 +84,30 @@ if (__DEV__) {
         keepClosingSlash: true,
         minifyJS: true,
         minifyCSS: true,
-        minifyURLs: true
-      }
+        minifyURLs: true,
+      },
     }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         screw_ie8: true, // React doesn't support IE8
-        warnings: false
+        warnings: false,
       },
       mangle: {
-        screw_ie8: true
+        screw_ie8: true,
       },
       output: {
         comments: false,
-        screw_ie8: true
-      }
+        screw_ie8: true,
+      },
     }),
-    new webpack.optimize.AggressiveMergingPlugin());
+    new webpack.optimize.AggressiveMergingPlugin())
+}
+
+if (!__TEST__) {
+  config.plugins.push(
+    new webpack.optimize.CommonsChunkPlugin({
+      names: ['vendor'],
+    }))
 }
 
 module.exports = config
