@@ -110,4 +110,12 @@ if (!__TEST__) {
     }))
 }
 
+if (__TEST__) {
+  config.module.rules.push({
+    test: /\.spec\.js?$/,
+    loader: 'babel-jest',
+    exclude: /node_modules/,
+  })
+}
+
 module.exports = config
