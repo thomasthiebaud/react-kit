@@ -12,6 +12,13 @@ export class State {
 
     let composeEnhancers = compose
 
+    if (__DEV__) {
+      const composeWithDevToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ // eslint-disable-line no-underscore-dangle,max-len
+      if (typeof composeWithDevToolsExtension === 'function') {
+        composeEnhancers = composeWithDevToolsExtension
+      }
+    }
+
     this.store = createStore(
       createRootReducer({}),
       initialState,

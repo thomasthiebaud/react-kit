@@ -11,6 +11,11 @@ module.exports = {
     'standard',
     'promise',
   ],
+  globals: {
+    __DEV__: true,
+    __PROD__: true,
+    __TEST__: true,
+  },
   rules: {
     'comma-dangle': ['error', {
       arrays: 'always-multiline',
