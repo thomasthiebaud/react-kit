@@ -3,7 +3,7 @@ import shallow from 'enzyme/shallow'
 import mount from 'enzyme/mount'
 import sinon from 'sinon'
 
-import LazilyLoad from './LazilyLoad'
+import LazilyLoad from '../LazilyLoad'
 
 describe('(Component) LaziLoad', () => {
   it('should render null will the component is loading', () => {

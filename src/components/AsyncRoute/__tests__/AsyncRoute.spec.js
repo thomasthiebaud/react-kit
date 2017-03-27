@@ -3,7 +3,7 @@ import mount from 'enzyme/mount'
 import BrowserRouter from 'react-router-dom/BrowserRouter'
 import MemoryRouter from 'react-router-dom/MemoryRouter'
 
-import AsyncRoute from './AsyncRoute'
+import AsyncRoute from '../AsyncRoute'
 
 const route = {
   path: '/',
