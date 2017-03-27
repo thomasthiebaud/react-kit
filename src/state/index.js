@@ -3,11 +3,12 @@ import compose from 'redux/lib/compose'
 import createStore from 'redux/lib/createStore'
 
 import createRootReducer from './reducer'
+import sagaMiddleware from './saga'
 
 export class State {
   constructor (initialState = {}) {
     const enhancers = []
-    const middleware = []
+    const middleware = [sagaMiddleware]
 
     let composeEnhancers = compose
 
@@ -20,6 +21,7 @@ export class State {
       )
     )
     this.store.asyncReducers = {}
+    this.store.sagas = {}
 
     if (module.hot) {
       module.hot.accept('./reducer', () => {
@@ -33,6 +35,18 @@ export class State {
 
     this.store.asyncReducers[key] = reducer
     this.store.replaceReducer(createRootReducer(this.store.asyncReducers))
+  }
+
+  injectSaga (saga) {
+    if (this.store.sagas.hasOwnProperty(saga.name)) return
+
+    this.store.sagas[saga.name] = true
+    sagaMiddleware.run(saga)
+  }
+
+  injectSagas (sagas) {
+    if (Array.isArray(sagas)) sagas.forEach(saga => this.injectSaga(saga))
+    else this.injectSaga(sagas)
   }
 }
 
