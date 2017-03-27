@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "lint:fix": "npm run lint -- --fix",
     "start": "node bin/run start",
-    "test": "node bin/run test -e test"
+    "test": "node bin/run test -e test",
+    "test:report": "npm test && codecov"
   },
   "author": "Thomas Thiebaud",
   "license": "MIT",
@@ -36,6 +37,7 @@
     "babel-preset-es2015": "6.24.0",
     "babel-preset-react": "6.23.0",
     "babel-preset-stage-2": "6.22.0",
+    "codecov": "2.1.0",
     "commitizen": "2.9.6",
     "cz-conventional-changelog": "2.0.0",
     "enzyme": "2.8.0",
