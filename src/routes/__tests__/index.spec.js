@@ -2,7 +2,7 @@ import React from 'react'
 import mount from 'enzyme/mount'
 import BrowserRouter from 'react-router-dom/BrowserRouter'
 
-import Entry from '.'
+import Entry from '..'
 
 describe('(Entry) Routes', () => {
   it('should render a router', () => {

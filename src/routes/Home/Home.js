@@ -1,5 +1,11 @@
 import React from 'react'
 
-export default () => (
-  <h1>Hello World !!!</h1>
+const Home = (props) => (
+  <h1>Hello {props.greetings}</h1>
 )
+
+Home.propTypes = {
+  greetings: React.PropTypes.string.isRequired,
+}
+
+export default Home

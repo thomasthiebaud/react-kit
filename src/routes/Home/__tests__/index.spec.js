@@ -1,4 +1,4 @@
-import entry from '.'
+import entry from '..'
 
 describe('(Entry) Home', () => {
   it.only('should return a promise', () => {

@@ -2,14 +2,18 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 import { AppContainer } from 'react-hot-loader'
+import Provider from 'react-redux/lib/components/Provider'
 
-import Home from './routes'
+import state from 'state'
+import Router from './routes'
 
 const render = () => {
   try {
     ReactDOM.render(
       <AppContainer>
-        <Home />
+        <Provider store={state.store}>
+          <Router />
+        </Provider>
       </AppContainer>,
       document.getElementById('root')
     )
