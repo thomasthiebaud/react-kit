@@ -60,6 +60,14 @@ const config = {
         options: {
           localIdentName: '[name]__[local]___[hash:base64:5]',
           modules: true,
+          importLoaders: 1,
+        },
+      }, {
+        loader: 'postcss-loader',
+        options: {
+          plugins: () => [
+            require('autoprefixer'),
+          ],
         },
       }, {
         loader: 'sass-loader',
