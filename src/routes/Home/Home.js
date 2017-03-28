@@ -1,5 +1,7 @@
 import React from 'react'
 
+import style from './style.scss'
+
 class Home extends React.Component {
   componentWillMount () {
     this.props.getGreetings()
@@ -7,7 +9,9 @@ class Home extends React.Component {
 
   render () {
     return (
-      <h1>Hello {this.props.greetings}</h1>
+      <h1 className={style.disco}>
+        Hello {this.props.greetings}
+      </h1>
     )
   }
 }

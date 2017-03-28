@@ -7,6 +7,8 @@ import Provider from 'react-redux/lib/components/Provider'
 import state from 'state'
 import Router from './routes'
 
+import 'styles/globals.scss'
+
 const render = () => {
   try {
     ReactDOM.render(

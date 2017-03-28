@@ -1,4 +1,5 @@
 const webpack = require('webpack')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const project = require('./project.config')
@@ -40,9 +41,32 @@ const config = {
 
   module: {
     rules: [{
-      test: /\.js?$/,
+      test: /\.js$/,
       loader: 'babel-loader',
       exclude: /node_modules/,
+    }, {
+      test: /\.css$/,
+      use: [{
+        loader: 'style-loader',
+      }, {
+        loader: 'css-loader',
+      }],
+    }, {
+      test: /\.scss$/,
+      use: [{
+        loader: 'style-loader',
+      }, {
+        loader: 'css-loader',
+        options: {
+          localIdentName: '[name]__[local]___[hash:base64:5]',
+          modules: true,
+        },
+      }, {
+        loader: 'sass-loader',
+        options: {
+          includePaths: [].concat(project.paths.client('styles')),
+        },
+      }],
     }],
   },
 
@@ -116,6 +140,25 @@ if (__TEST__) {
     loader: 'babel-jest',
     exclude: /node_modules/,
   })
+}
+
+if (!__DEV__) {
+  config.module.rules
+    .filter(rule => String(rule.test).includes('css'))
+    .forEach((rule) => {
+      const first = rule.use[0]
+      const rest = rule.use.slice(1)
+      rule.use = ExtractTextPlugin.extract({
+        fallback: first,
+        use: rest,
+      })
+    })
+
+  config.plugins.push(
+    new ExtractTextPlugin({
+      filename: '[name].[contenthash].css',
+      allChunks: true,
+    }))
 }
 
 module.exports = config
