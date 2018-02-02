@@ -1,4 +1,0 @@
-language: node_js
-node_js:
-before_script: npm run lint
-script: npm run test:report
