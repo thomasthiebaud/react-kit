@@ -1,20 +1,8 @@
 module.exports = {
-  extends: [
-    'standard',
-    'standard-react',
-  ],
+  extends: 'airbnb',
+  parser: 'babel-eslint',
   env: {
     browser: true,
-    jest: true,
-  },
-  plugins: [
-    'standard',
-    'promise',
-  ],
-  globals: {
-    __DEV__: true,
-    __PROD__: true,
-    __TEST__: true,
   },
   rules: {
     'comma-dangle': ['error', {
@@ -24,6 +12,9 @@ module.exports = {
       exports: 'always-multiline',
       functions: 'never',
     }],
-    'prefer-promise-reject-errors': ["error", {"allowEmptyReject": true}]
-  }
+    'import/no-extraneous-dependencies': ['error', {'devDependencies': true}],
+    'prefer-promise-reject-errors': ['error', {'allowEmptyReject': true}],
+    'react/jsx-filename-extension': ['error', {'extensions': ['.js', '.jsx']}],
+    'semi': ['error', 'never'],
+  },
 };
