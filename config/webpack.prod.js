@@ -30,6 +30,9 @@ const config = {
         babelrc: false,
         presets: ['env', 'react'],
       },
+      plugins: [
+        'syntax-dynamic-import',
+      ],
     }, {
       test: /\.scss$/,
       use: extractSass.extract({
