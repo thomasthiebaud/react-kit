@@ -2,6 +2,7 @@ import React from 'react'
 
 import { BrowserRouter } from 'react-router-dom'
 import { renderRoutes } from 'react-router-config'
+import { hot } from 'react-hot-loader'
 
 import Home from './Home'
 
@@ -9,10 +10,10 @@ const routes = [{
   component: Home,
 }]
 
-export const Router = () => (
+const Router = () => (
   <BrowserRouter>
     {renderRoutes(routes)}
   </BrowserRouter>
 )
 
-export default Router
+export default hot(module)(Router)
