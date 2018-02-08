@@ -13,7 +13,7 @@ const extractSass = new ExtractTextPlugin({
 
 const config = {
   bail: true,
-  entry: './src/index.js',
+  entry: ['babel-polyfill', './src/index.js'],
   output: {
     path: path.resolve(__dirname, '..', 'dist'),
     filename: '[name].js',
@@ -31,6 +31,8 @@ const config = {
         presets: ['env', 'react'],
         plugins: [
           'syntax-dynamic-import',
+          'transform-object-rest-spread',
+          'transform-regenerator',
         ],
       },
     }, {

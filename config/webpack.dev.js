@@ -5,7 +5,7 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const config = {
-  entry: './src/index.js',
+  entry: ['babel-polyfill', './src/index.js'],
   output: {
     path: path.resolve(__dirname, '..', 'dist'),
     publicPath: '/',
@@ -25,6 +25,8 @@ const config = {
         plugins: [
           'react-hot-loader/babel',
           'syntax-dynamic-import',
+          'transform-object-rest-spread',
+          'transform-regenerator',
         ],
       },
     }, {
