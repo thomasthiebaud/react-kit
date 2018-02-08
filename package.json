@@ -20,6 +20,7 @@
     "lint"
   ],
   "dependencies": {
+    "bulma": "0.6.2",
     "normalize.css": "7.0.0",
     "react": "16.2.0",
     "react-dom": "16.2.0",

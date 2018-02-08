@@ -1,11 +1,18 @@
 import React from 'react'
 
-import style from './style.scss'
-
 const Home = () => (
-  <h1 className={style.disco}>
-    Hello World
-  </h1>
+  <section className="hero is-dark">
+    <div className="hero-body">
+      <div className="container">
+        <h1 className="title">
+          React Kit
+        </h1>
+        <h2 className="subtitle">
+          A ready-to-go React App
+        </h2>
+      </div>
+    </div>
+  </section>
 )
 
 export default Home
