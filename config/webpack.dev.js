@@ -8,6 +8,7 @@ const config = {
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, '..', 'dist'),
+    publicPath: '/',
     filename: '[name].js',
     chunkFilename: '[name].[chunkhash].js',
   },
@@ -22,6 +23,7 @@ const config = {
         babelrc: false,
         presets: ['env', 'react'],
         plugins: [
+          'react-hot-loader/babel',
           'syntax-dynamic-import',
         ],
       },
@@ -50,7 +52,13 @@ const config = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development'),
     }),
+    new webpack.NamedModulesPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
   ],
+  devServer: {
+    contentBase: './dist',
+    hot: true,
+  },
 }
 
 module.exports = config
