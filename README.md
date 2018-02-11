@@ -16,16 +16,6 @@ and then install modules with
 
 The following scripts are available
 
-"build": "npm run clean; npm run build:prod",
-    "build:dev": "webpack --config config/webpack.dev.js",
-    "build:prod": "webpack --config config/webpack.prod.js",
-    "clean": "rimraf dist/ yarn-error.log npm-debug.log",
-    "lint": "eslint .",
-    "lint:fix": "npm run lint -- --fix",
-    "start": "npm run start:dev",
-    "start:dev": "webpack-dev-server --open --config config/webpack.dev.js",
-    "start:prod": "npm run build && http-server --cors dist/"
-
 |Name         |Description                                                                                   |
 |-------------|----------------------------------------------------------------------------------------------|
 |build        | Alias for `build:prod`                                                                       |
