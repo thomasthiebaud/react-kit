@@ -1,4 +1,14 @@
+sudo: false
+
 language: node_js
+
+cache:
+  directories:
+    - node_modules
+
+# Keep empty to user version from .nvmrc
 node_js:
-before_script: npm run lint
-script: npm run test:report
+
+script:
+  - yarn lint
+  - yarn build:prod
