@@ -1,21 +1,45 @@
 const initialState = {
-  isFetching: false,
-  greetings: null,
+  features: [{
+    heading: 'Predictable state managment',
+    title: 'Redux',
+  }, {
+    heading: 'Multiple and dynamic bundles',
+    title: 'Code splitting',
+  }, {
+    heading: 'Declarative routing',
+    title: 'React Router',
+  }, {
+    heading: 'Realtime update',
+    title: 'React Hot reload',
+  }],
+  loading: false,
+}
+
+function shuffle(array) {
+  const copy = array.slice()
+
+  for (let i = copy.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1))
+    const temp = copy[i]
+    copy[i] = copy[j]
+    copy[j] = temp
+  }
+
+  return copy
 }
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case 'GET_GREETINGS_REQUESTED':
+    case 'SHUFFLE-REQUESTED':
       return {
         ...state,
-        isFetching: true,
-        greetings: null,
+        loading: true,
       }
-    case 'GET_GREETINGS_SUCCEEDED':
+    case 'SHUFFLE-DONE':
       return {
         ...state,
-        greetings: action.greetings,
-        isFetching: false,
+        features: shuffle(state.features),
+        loading: false,
       }
     default:
       return state

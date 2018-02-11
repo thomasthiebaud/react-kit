@@ -1,18 +1,17 @@
 import { put, takeEvery } from 'redux-saga/effects'
 import { delay } from 'redux-saga'
 
-function* fetchGreetings() {
-  yield delay(500)
+function* shuffleFeatures() {
+  yield delay(3000)
   yield put({
-    type: 'GET_GREETINGS_SUCCEEDED',
-    greetings: 'Hello Everyone',
+    type: 'SHUFFLE-DONE',
   })
 }
 
-function* fetchGreetingsSaga() {
-  yield takeEvery('GET_GREETINGS_REQUESTED', fetchGreetings)
+function* shuffleFeaturesSaga() {
+  yield takeEvery('SHUFFLE-REQUESTED', shuffleFeatures)
 }
 
 export default [
-  fetchGreetingsSaga,
+  shuffleFeaturesSaga,
 ]
