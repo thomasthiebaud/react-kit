@@ -36,7 +36,7 @@ const config = {
         ],
       },
     }, {
-      test: /\.scss$/,
+      test: /\.s?css$/,
       use: extractSass.extract({
         use: [{
           loader: 'css-loader',
@@ -53,6 +53,15 @@ const config = {
         }],
         fallback: 'style-loader',
       }),
+    }, {
+      test: /\.(eot|svg|ttf|woff|woff2)$/,
+      loader: 'file-loader',
+    }, {
+      test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+      loader: 'url-loader',
+      options: {
+        limit: 10000,
+      },
     }],
   },
   plugins: [
