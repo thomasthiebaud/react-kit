@@ -5,7 +5,7 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const config = {
-  entry: ['babel-polyfill', './src/index.js'],
+  entry: './src/index.tsx',
   output: {
     path: path.resolve(__dirname, '..', 'dist'),
     publicPath: '/',
@@ -13,22 +13,24 @@ const config = {
     chunkFilename: '[name].[chunkhash].js',
   },
   resolve: {
-    extensions: ['.jsx', '.js'],
+    extensions: ['.tsx', '.ts', '.jsx', '.js'],
   },
   module: {
     rules: [{
-      test: /\.js$/,
-      loader: 'babel-loader',
-      options: {
-        babelrc: false,
-        presets: ['env', 'react'],
-        plugins: [
-          'react-hot-loader/babel',
-          'syntax-dynamic-import',
-          'transform-object-rest-spread',
-          'transform-regenerator',
-        ],
-      },
+      test: /\.tsx?/,
+      exclude: /node_modules/,
+      use: [{
+        loader: 'babel-loader',
+        options: {
+          babelrc: false,
+          plugins: [
+            'syntax-dynamic-import',
+            'react-hot-loader/babel',
+          ],
+        },
+      }, {
+        loader: 'ts-loader',
+      }],
     }, {
       test: /\.s?css$/,
       use: [{

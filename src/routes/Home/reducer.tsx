@@ -1,4 +1,6 @@
-const initialState = {
+import { Action, Feature, State, Type } from './state'
+
+const initialState: State = {
   features: [{
     heading: 'Predictable state managment',
     title: 'Redux',
@@ -15,7 +17,7 @@ const initialState = {
   loading: false,
 }
 
-function shuffle(array) {
+function shuffle(array: Feature[]) {
   const copy = array.slice()
 
   for (let i = copy.length - 1; i > 0; i -= 1) {
@@ -28,14 +30,14 @@ function shuffle(array) {
   return copy
 }
 
-export default function reducer(state = initialState, action) {
+export default function reducer(state = initialState, action: Action) {
   switch (action.type) {
-    case 'SHUFFLE-REQUESTED':
+    case Type.SHUFFLE_REQUESTED:
       return {
         ...state,
         loading: true,
       }
-    case 'SHUFFLE-DONE':
+    case Type.SHUFFLE_DONE:
       return {
         ...state,
         features: shuffle(state.features),

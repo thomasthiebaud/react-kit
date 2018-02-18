@@ -1,8 +1,8 @@
-import React from 'react'
+import * as React from 'react'
 
-import { BrowserRouter } from 'react-router-dom'
-import { renderRoutes } from 'react-router-config'
 import { hot } from 'react-hot-loader'
+import { renderRoutes } from 'react-router-config'
+import { BrowserRouter } from 'react-router-dom'
 
 import Home from './Home'
 

@@ -13,28 +13,20 @@ const extractSass = new ExtractTextPlugin({
 
 const config = {
   bail: true,
-  entry: ['babel-polyfill', './src/index.js'],
+  entry: './src/index.tsx',
   output: {
     path: path.resolve(__dirname, '..', 'dist'),
     filename: '[name].js',
     chunkFilename: '[name].[chunkhash].js',
   },
   resolve: {
-    extensions: ['.jsx', '.js'],
+    extensions: ['.tsx', '.ts', '.jsx', '.js'],
   },
   module: {
     rules: [{
-      test: /\.js$/,
-      loader: 'babel-loader',
-      options: {
-        babelrc: false,
-        presets: ['env', 'react'],
-        plugins: [
-          'syntax-dynamic-import',
-          'transform-object-rest-spread',
-          'transform-regenerator',
-        ],
-      },
+      test: /\.tsx?/,
+      loader: 'ts-loader',
+      exclude: /node_modules/,
     }, {
       test: /\.s?css$/,
       use: extractSass.extract({
