@@ -2,12 +2,8 @@ sudo: false
 
 language: node_js
 
-cache:
-  directories:
-    - node_modules
-
 # Keep empty to user version from .nvmrc
-node_js:
+node_js: null
 
 script:
   - yarn lint
