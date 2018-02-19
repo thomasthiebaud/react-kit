@@ -2,6 +2,8 @@
 
 ---
 
+Do you prefer `es6` ? If so, use the [dedicated branch](https://github.com/thomasthiebaud/react-kit/tree/es6) instead
+
 # Setup
 
 This project was tested with nodejs version `8.9.4`. You can easily install this version using [nvm](https://github.com/creationix/nvm) and then running
