@@ -6,13 +6,14 @@ import './style.scss'
 
 class Home extends React.PureComponent {
   render() {
+    const { features, loading, shuffle } = this.props
     return (
       <section className="hero is-dark is-fullheight">
         <div className="hero-head">
           <header className="navbar">
             <div className="container">
               <div className="navbar-brand">
-                <a className="navbar-item" href="/" >
+                <a className="navbar-item" href="/">
                   REACT KIT
                 </a>
               </div>
@@ -29,11 +30,13 @@ class Home extends React.PureComponent {
             </h2>
             <nav className="level">
               {
-                this.props.loading ?
-                  <div className="level-item has-text-centered" key="level-item-loading">
-                    <Spinner name="three-bounce" className="home__spinner" />
-                  </div> :
-                  this.props.features.map(feature => (
+                loading
+                  ? (
+                    <div className="level-item has-text-centered" key="level-item-loading">
+                      <Spinner name="three-bounce" className="home__spinner" />
+                    </div>
+                  )
+                  : features.map(feature => (
                     <div className="level-item has-text-centered" key={`level-item-${feature.title}`}>
                       <div>
                         <p className="heading">{feature.heading}</p>
@@ -43,7 +46,7 @@ class Home extends React.PureComponent {
                   ))
               }
             </nav>
-            <button className="button is-primary" onClick={() => this.props.shuffle()}>
+            <button className="button is-primary" type="button" onClick={() => shuffle()}>
               Shuffle
             </button>
           </div>

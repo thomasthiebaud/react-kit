@@ -1,75 +1,72 @@
 const autoprefixer = require('autoprefixer')
-const path = require('path')
-const webpack = require('webpack')
 
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const Dotenv = require('dotenv-webpack')
+const HtmlWebPackPlugin = require('html-webpack-plugin')
 
-const config = {
-  entry: ['babel-polyfill', './src/index.js'],
-  output: {
-    path: path.resolve(__dirname, '..', 'dist'),
-    publicPath: '/',
-    filename: '[name].js',
-    chunkFilename: '[name].[chunkhash].js',
-  },
-  resolve: {
-    extensions: ['.jsx', '.js'],
-  },
+module.exports = {
+  mode: 'development',
   module: {
-    rules: [{
-      test: /\.js$/,
-      loader: 'babel-loader',
-      options: {
-        babelrc: false,
-        presets: ['env', 'react'],
-        plugins: [
-          'react-hot-loader/babel',
-          'syntax-dynamic-import',
-          'transform-object-rest-spread',
-          'transform-regenerator',
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+            plugins: ['react-hot-loader/babel', 'syntax-dynamic-import', 'transform-regenerator'],
+          },
+        },
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: () => [autoprefixer()],
+            },
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              includePaths: ['node_modules', 'src'],
+            },
+          },
         ],
       },
-    }, {
-      test: /\.s?css$/,
-      use: [{
-        loader: 'style-loader',
-      }, {
-        loader: 'css-loader',
-      }, {
-        loader: 'postcss-loader',
-        options: {
-          plugins: () => [
-            autoprefixer(),
-          ],
-        },
-      }, {
-        loader: 'sass-loader',
-      }],
-    }, {
-      test: /\.(eot|svg|ttf|woff|woff2)$/,
-      loader: 'file-loader',
-    }, {
-      test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
-      loader: 'url-loader',
-      options: {
-        limit: 10000,
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader', {
+          loader: 'postcss-loader',
+          options: {
+            plugins: () => [autoprefixer()],
+          },
+        }],
       },
-    }],
+      {
+        test: /\.(eot|svg|ttf|woff|woff2)$/,
+        loader: 'file-loader',
+      },
+      {
+        test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+        },
+      },
+    ],
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: 'public/index.html',
+    new Dotenv(),
+    new HtmlWebPackPlugin({
+      template: './public/index.html',
+      filename: './index.html',
     }),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('development'),
-    }),
-    new webpack.NamedModulesPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
   ],
-  devServer: {
-    contentBase: './dist',
-    hot: true,
+  serve: {
+    open: true,
   },
 }
-
-module.exports = config

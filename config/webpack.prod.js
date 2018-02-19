@@ -1,46 +1,54 @@
 const autoprefixer = require('autoprefixer')
 const cssnano = require('cssnano')
-const path = require('path')
-const webpack = require('webpack')
 
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const HtmlWebPackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-const extractSass = new ExtractTextPlugin({
-  filename: '[name].css',
-})
-
-const config = {
-  bail: true,
-  entry: ['babel-polyfill', './src/index.js'],
-  output: {
-    path: path.resolve(__dirname, '..', 'dist'),
-    filename: '[name].js',
-    chunkFilename: '[name].[chunkhash].js',
-  },
-  resolve: {
-    extensions: ['.jsx', '.js'],
-  },
+module.exports = {
+  mode: 'production',
   module: {
-    rules: [{
-      test: /\.js$/,
-      loader: 'babel-loader',
-      options: {
-        babelrc: false,
-        presets: ['env', 'react'],
-        plugins: [
-          'syntax-dynamic-import',
-          'transform-object-rest-spread',
-          'transform-regenerator',
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+            plugins: [
+              'syntax-dynamic-import',
+              'transform-regenerator',
+            ],
+          },
+        },
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: () => [
+                autoprefixer(),
+                cssnano(),
+              ],
+            },
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              includePaths: ['node_modules', 'src'],
+            },
+          },
         ],
       },
-    }, {
-      test: /\.s?css$/,
-      use: extractSass.extract({
-        use: [{
-          loader: 'css-loader',
-        }, {
+      {
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', {
           loader: 'postcss-loader',
           options: {
             plugins: () => [
@@ -48,25 +56,24 @@ const config = {
               cssnano(),
             ],
           },
-        }, {
-          loader: 'sass-loader',
         }],
-        fallback: 'style-loader',
-      }),
-    }, {
-      test: /\.(eot|svg|ttf|woff|woff2)$/,
-      loader: 'file-loader',
-    }, {
-      test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
-      loader: 'url-loader',
-      options: {
-        limit: 10000,
       },
-    }],
+      {
+        test: /\.(eot|svg|ttf|woff|woff2)$/,
+        loader: 'file-loader',
+      }, {
+        test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+        },
+      },
+    ],
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: 'public/index.html',
+    new HtmlWebPackPlugin({
+      template: './public/index.html',
+      filename: './index.html',
       minify: {
         removeComments: true,
         collapseWhitespace: true,
@@ -80,15 +87,13 @@ const config = {
         minifyURLs: true,
       },
     }),
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+    }),
     new UglifyJsPlugin({
-      parallel: true,
       cache: true,
+      parallel: true,
     }),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production'),
-    }),
-    extractSass,
+    new OptimizeCSSAssetsPlugin({}),
   ],
 }
-
-module.exports = config
