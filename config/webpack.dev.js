@@ -1,7 +1,7 @@
-const autoprefixer = require('autoprefixer')
+const autoprefixer = require('autoprefixer');
 
-const Dotenv = require('dotenv-webpack')
-const HtmlWebPackPlugin = require('html-webpack-plugin')
+const Dotenv = require('dotenv-webpack');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -39,12 +39,16 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader', {
-          loader: 'postcss-loader',
-          options: {
-            plugins: () => [autoprefixer()],
+        use: [
+          'style-loader',
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: () => [autoprefixer()],
+            },
           },
-        }],
+        ],
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2)$/,
@@ -69,4 +73,4 @@ module.exports = {
   serve: {
     open: true,
   },
-}
+};

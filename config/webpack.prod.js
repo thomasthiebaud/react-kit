@@ -1,10 +1,10 @@
-const autoprefixer = require('autoprefixer')
-const cssnano = require('cssnano')
+const autoprefixer = require('autoprefixer');
+const cssnano = require('cssnano');
 
-const HtmlWebPackPlugin = require('html-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
   mode: 'production',
@@ -17,10 +17,7 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: ['@babel/preset-env', '@babel/preset-react'],
-            plugins: [
-              'syntax-dynamic-import',
-              'transform-regenerator',
-            ],
+            plugins: ['syntax-dynamic-import', 'transform-regenerator'],
           },
         },
       },
@@ -32,10 +29,7 @@ module.exports = {
           {
             loader: 'postcss-loader',
             options: {
-              plugins: () => [
-                autoprefixer(),
-                cssnano(),
-              ],
+              plugins: () => [autoprefixer(), cssnano()],
             },
           },
           {
@@ -48,20 +42,22 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', {
-          loader: 'postcss-loader',
-          options: {
-            plugins: () => [
-              autoprefixer(),
-              cssnano(),
-            ],
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: () => [autoprefixer(), cssnano()],
+            },
           },
-        }],
+        ],
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2)$/,
         loader: 'file-loader',
-      }, {
+      },
+      {
         test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
         loader: 'url-loader',
         options: {
@@ -96,4 +92,4 @@ module.exports = {
     }),
     new OptimizeCSSAssetsPlugin({}),
   ],
-}
+};
