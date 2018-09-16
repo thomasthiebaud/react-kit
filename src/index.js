@@ -1,13 +1,13 @@
-import '@babel/polyfill'
+import '@babel/polyfill';
 
-import React from 'react'
-import ReactDOM from 'react-dom'
-import { Provider } from 'react-redux'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 
-import Router from './routes'
-import state from './state'
+import Router from './routes';
+import state from './state';
 
-import './index.scss'
+import './index.scss';
 
 const render = () => {
   try {
@@ -16,11 +16,11 @@ const render = () => {
         <Router />
       </Provider>,
       document.getElementById('root')
-    )
+    );
   } catch (err) {
     // eslint-disable-next-line
     console.error(err)
   }
-}
+};
 
-render()
+render();

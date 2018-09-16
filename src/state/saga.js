@@ -1,3 +1,3 @@
-import createSagaMiddleware from 'redux-saga'
+import createSagaMiddleware from 'redux-saga';
 
-export default createSagaMiddleware()
+export default createSagaMiddleware();
