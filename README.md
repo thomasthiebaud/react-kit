@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/thomasthiebaud/react-kit.svg)](https://travis-ci.org/thomasthiebaud/react-kit)
+**DEPRECATED**
+I'm archiving this repo. [Create React App](https://github.com/facebook/create-react-app) does a better job, is well maintained  and support more options.
 
 ---
 
